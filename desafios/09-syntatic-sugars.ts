@@ -1,22 +1,23 @@
-function getFirstFiveRatings(ratings) {
+function getFirstFiveRatings(ratings: string[]) {
   return ratings.length >= 5 && ratings.slice(0, 5)
 }
 
-function sumFirstFiveRatings(ratings) {
-  const ratingsBool = !!ratings
+function sumFirstFiveRatings(ratings: string[]) {
+  const ratingsBool = Boolean(ratings)
 
   if (ratingsBool) {
     const firstFiveRatings = getFirstFiveRatings(ratings)
 
-    if (!firstFiveRatings) return { error: 'there must be at least 5 ratings' }
+    const isRatingSmallFiveElements = !Boolean(firstFiveRatings)
+    if (isRatingSmallFiveElements) return { error: 'there must be at least 5 ratings' }
 
     let ratingsSum = 0;
 
     for (const rating of firstFiveRatings) {
-      ratingsSum += +rating
+      ratingsSum = ratingsSum + Number(rating)
     }
 
-    return { ratingsSum, created_at: +new Date() }
+    return { ratingsSum, created_at: new Date().getTime() }
   }
 
   return { error: 'ratings is required' }
